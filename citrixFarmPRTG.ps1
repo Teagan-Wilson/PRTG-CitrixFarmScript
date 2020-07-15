@@ -24,13 +24,9 @@ $DisconnectedSessions = (Get-BrokerSession | where {$_.SessionState -ne "Active"
 #Get Broker Status - Convert 'OK' or not to numeric 1 or 0
 $BrokerStatus = if(((Get-BrokerServiceStatus).ServiceStatus -eq 'OK')) {1} else {0}
 
-#Get Worker in Maintenance mode
-$InMaintenance = (Get-BrokerMachine | where {$_.InMaintenanceMode -eq "True"}).Count
-
 #Create Object with above information so we can pass it back out later. 
 $Data= [PSCustomObject]@{
 BrokerStatus = $BrokerStatus
-Worker_In_Maintenance = $InMaintenance
 ActiveSessions = $ActiveSessions
 DisconnectedSessions = $DisconnectedSessions
 }
